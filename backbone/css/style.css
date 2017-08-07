@@ -1,0 +1,141 @@
+.page-container{
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 10px 0;
+}
+.authorization{
+	float: right;
+}
+.none{
+	display: none;
+}
+.buttons li{
+	cursor: pointer;
+}
+
+header{
+	display: block;
+}
+header:after{
+	content: '';
+	display: block;
+	clear: both;
+}
+.userinfo{
+	float: right;
+}
+.buttons{
+	float: right;
+}
+.buttons li{
+	display: inline-block;
+}
+.content{
+	clear: both;
+/*	max-width: 1200px;
+	margin: 0 auto;*/
+
+}
+.navigation li{
+	display: inline-block;
+	padding: 10px;
+	cursor: pointer;
+}
+.edit-buttons li{
+	display: inline-block;
+	padding: 10px;
+}
+.form-container{
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+}
+.navigation li.active{
+	background-color: #337ab7;
+	color: white;
+	border-color: #2e6da4;
+    border-radius: 4px 4px 0 0;
+}
+/*.form-container form{
+	background-color: white;
+	width: 500px;
+	margin:  100px auto;
+	padding: 20px;
+
+
+}*/
+/*.form-container.active{
+	display: block;
+	z-index: 100;
+}
+.form-container.disabled{
+	display: none;
+}*/
+.login-form{
+	width: 500px;
+	margin: 100px auto;
+	padding: 50px;
+	background-color: white;
+}
+.ad{
+	display: inline-block;
+	vertical-align: top;
+/*	width: 25%;*/
+}
+.ad:after{
+	content: '';
+	display: block;
+	clear: both;
+}
+.ad .edit-buttons{
+	position: absolute;
+    top: 0px;
+    right: 0px;
+}
+.ad img{
+	float: left;
+	width: 100px;
+	max-height: 150px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+
+}
+.ad{
+	position: relative;
+	padding: 10px;
+}
+.pagination-button{
+	display: block;
+	margin: 0 auto;
+}
+.edit, .delete{
+	cursor: pointer;
+}
+.column-4 .ad{
+	width: 25%;
+}
+.column-2 .ad{
+	width: 50%;
+}
+.column-1 .ad{
+	width: 100%;
+}
+
+
+.buttons li{
+	padding: 5px;
+}
+.buttons li.active{
+	background-color:  #337ab7;
+	color: white;
+}
+#add-button{
+	float: left;
+	margin: 5px;
+}
+.ad h2{
+	margin: 0;
+}

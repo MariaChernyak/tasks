@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>callboard</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+<div class="page-container">
+	<nav class="navigation">
+		<ul class='categories  nav nav-tabs nav-pills'>
+			<li id='-1category' class='active'>Все объявления</li>
+		</ul>
+	</nav>
+
+<button class="btn btn-primary btn-md" id="add-button"  type="button">Добавить</button>
+<div class="content-container">
+		<ul class="buttons">
+			<li data-id='1' class="glyphicon glyphicon-th"></li>
+			<li class='active glyphicon glyphicon-th-large' data-id ='2'></li>
+			<li data-id='3' class="glyphicon glyphicon-th-list"></li>
+		</ul>
+		<div class=" column-2 content"></div>
+		<button type='button' id='load-button' class="btn btn-primary btn-md pagination-button">показать еще</button>
+	</div>
+</div>
+<div id='edit' class="modal fade" tabindex="-1">
+			<form role="form" name='edit-form' class="login-form">
+				<div class="form-group">
+					<label for="name">Название</label>
+				  	<input type="text" class="form-control" id="name" placeholder="Введите название">
+				</div>
+				<div class="form-group">
+				  	<label for="photo">Фото</label>
+				  	<input type="file" class="form-control" id="photo" placeholder="Выберите файл">
+				</div>
+				<div class="form-group">
+				  	<label for="price">Цена</label>
+				  	<input type="text" class="form-control" id="price" placeholder="Цена">
+				 </div>
+
+				 <div class="form-group">
+					<label for="category">Категория</label>
+					<select class="form-control" id="category" placeholder="Категория"></select>
+				</div>
+				<div class="form-group">
+				  	<label for="description">Описание</label>
+				 	 <input type="text" class="form-control" id="description" placeholder="Описание">
+				</div>
+				
+				<button type="submit" id="edit-button" class="btn btn-success">Сохранить</button>
+				<button class="btn btn-default" type="button"  data-dismiss="modal">Отмена</button>
+			</form>
+		</div>
+		
+<!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
+<script src ="js/jquery.min.js" type="text/javascript"></script>
+<script src="js/bootstrap.min.js" type="text/javascript"></script>
+<!-- <script type="text/javascript" src='js/jquery.min.js'></script> -->
+<script type="text/javascript" src='js/underscore.js'></script>
+<script type="text/javascript" src='js/backbone.js'></script>
+<script type="text/javascript" src='js/localStorage.js'></script>
+<script id="adTemplate" type="text/template">
+	<ul class="edit-buttons">
+		<li class="edit">
+			<a class='glyphicon glyphicon-pencil'  ></a>	<!-- <a class='glyphicon glyphicon-pencil'  data-toggle='modal' data-target='#edit' ></a> -->
+		</li>
+		<li class="delete"><a class='glyphicon glyphicon-remove'></a></li>
+	</ul>
+	<div class='ad-img'><img src="<%=img%>"></div>
+	<h2 class='ad-name'><%=name%></h2>
+	<p class='ad-price'><%=price%></p>
+	<p class='ad-description'><%=description%></p>
+</script>
+<script type="text/javascript">
+	window.App = {
+		models: {},
+		views: {},
+		collections: {}
+	}
+</script>
+<script src = "js/models.js" type="text/javascript"></script>
+<script src = "js/view.js" type="text/javascript"></script>
+<script src = "js/script.js" type="text/javascript"></script>
+
+</body>
+</html>
