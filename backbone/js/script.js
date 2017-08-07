@@ -237,13 +237,13 @@
 	});
 }());
 
-	var collection = new App.collections.Ads([{name: 'name1', description: 's'}, {name: 'name2', description: 'f'}, {name: 'name3', description: 'f'}])
+	var collection = new App.collections.Ads([{name: 'Продам квартиру', description: 'недорого, Завадской район',img:'img/2.jpg', categoryId: 1}, {name: 'Сдам 1-комнатную', img:'img/1.jpg', description: 'хороший ремонт', categoryId: 2}, {name: 'уютная комната', img:'img/3.jpg', description: 'недорого', categoryId: 1}])
 	var collectionView = new App.views.Ads({collection: collection})
 	// $(document.body).prepend(collectionView.render().el);
 	var editAdView = new App.views.editAd({collection: collection});
 
-var category1 = new App.models.Category({name: 'категория 1'});
-var category2 = new App.models.Category({name: 'категория 2'});
+var category1 = new App.models.Category({name: 'Продажа', id: 1});
+var category2 = new App.models.Category({name: 'Аренда', id: 2});
 var collectionCategiries = new App.collections.categories([category1, category2]);
 var b = new App.views.categories({collection: collectionCategiries});
 

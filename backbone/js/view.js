@@ -142,12 +142,14 @@ App.views.category = Backbone.View.extend({
 		events: {
 			'click' : 'search'
 		},
-		search: function(id){
-			
-			console.log(collection.filter(function(ad){
-				return true;
-			}))
-
+		search: function(){
+			$('.categories li').removeClass('active');
+			this.$el.addClass('active')
+			 var newCollection  = collection.filter(function(ad){ 
+						
+				return ad.get('categoryId') == this.model.get('id');
+			}, this)
+			 console.log(newCollection)
 		},
 
 		initialize: function(){
