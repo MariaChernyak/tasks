@@ -75,6 +75,19 @@
 			this.model.set('name', $('#name').val());
 			this.model.set('price', $('#price').val());
 			this.model.set('description', $('#description').val());
+			if( $('#photo').val() ){
+				reader.readAsDataURL($('#photo').prop('files')[0]);
+				console.log('no' + reader)
+				var that = this;
+				reader.onload = function(event) {
+					console.log('yes' + reader)
+		    		var dataUrl = event.target.result;
+		    		var photo = event.target.result;
+		    		that.model.set('img', photo);
+
+				}	
+			}
+			console.log(reader)
 		},
 		validateForm: function(name, price, description){
 			var flag = 0;
@@ -121,13 +134,15 @@
 	//вид коллекции объявлений
 	App.views.Ads = Backbone.View.extend({
 		el: $('.content'),
-		// tagName: 'div',
-		// className: 'content',
+		
 		initialize: function(){
 			this.render()
 			this.collection.on('add', this.addOne, this);
+			this.collection.on('reset', this.render, this);
 		},
 		render: function(){
+			console.log(this.collection)
+			this.$el.html('');
 			this.collection.each(this.addOne, this);
 	  		return this;
 		},
@@ -137,23 +152,36 @@
 		}
 	});
 
-App.views.category = Backbone.View.extend({
+	App.views.category = Backbone.View.extend({
 		tagName: 'li',
 		events: {
 			'click' : 'search'
 		},
 		search: function(){
 			$('.categories li').removeClass('active');
-			this.$el.addClass('active')
-			 var newCollection  = collection.filter(function(ad){ 
-						
-				return ad.get('categoryId') == this.model.get('id');
-			}, this)
-			 console.log(newCollection)
+			this.$el.addClass('active');
+			var newCollection = new App.collections.Ads();
+			if( this.model.get('id') == -1){
+				newCollection = collection;
+			}
+			else{
+				var length = collection.length;
+				for(var i = 0; i < length; i++){
+					if(collection.models[i].get('categoryId') == this.model.get('id')){
+						newCollection.add(collection.models[i]);
+					}
+				}
+			}
+			
+			collectionView.collection = newCollection;
+			collectionView.render();
 		},
 
 		initialize: function(){
 			this.render();
+			if(this.model.get('id') == -1){
+				this.$el.addClass('active');
+			}
 		},
 		render: function(){
 			this.$el.html(this.model.get('name'));
@@ -164,9 +192,9 @@ App.views.category = Backbone.View.extend({
 	App.views.categories = Backbone.View.extend({
 		el: $('.categories'),
 		initialize: function(){
+			console.log(this.collection.models[0])
 			this.render();
 		},
-
 		render: function(){
 			this.collection.each(this.addOne, this);
 	  		return this;
@@ -176,3 +204,6 @@ App.views.category = Backbone.View.extend({
 			this.$el.append(categoryView.render().el);
 		}
 	});
+
+	App.views.app = Backbone.View.extend({});
+

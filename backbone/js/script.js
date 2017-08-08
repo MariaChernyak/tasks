@@ -241,10 +241,10 @@
 	var collectionView = new App.views.Ads({collection: collection})
 	// $(document.body).prepend(collectionView.render().el);
 	var editAdView = new App.views.editAd({collection: collection});
-
+var category0 = new App.models.Category({name: 'Все объявления', id: -1});
 var category1 = new App.models.Category({name: 'Продажа', id: 1});
 var category2 = new App.models.Category({name: 'Аренда', id: 2});
-var collectionCategiries = new App.collections.categories([category1, category2]);
+var collectionCategiries = new App.collections.categories([category0, category1, category2]);
 var b = new App.views.categories({collection: collectionCategiries});
 
 //переключение между видами
@@ -278,3 +278,4 @@ $('.buttons').click(function(event){
 		}
 
 })
+var reader = new FileReader();

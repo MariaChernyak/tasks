@@ -7,6 +7,7 @@ App.models.Ad = Backbone.Model.extend({
 			publication: true, 
 			description: '',
 			name: ''
+
 		} ,
 		validate: function(attrs, options) {
 		    if (attrs.price < 0) {
