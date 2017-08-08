@@ -264,8 +264,8 @@ $('.buttons').click(function(event){
 
 		switch(id){
 			case '1': $('.content').addClass('column-4');
-					countAds = 8;
-					break;
+				countAds = 8;
+				break;
 			
 			case '2': $('.content').addClass('column-2');
 				countAds = 16;
@@ -279,3 +279,8 @@ $('.buttons').click(function(event){
 
 })
 var reader = new FileReader();
+
+var user1 = new App.models.User({id: 0, name: 'Maria', password: 1111, role: 'admin'});
+var user2 = new App.models.User({id: 1, name: 'Andrey', password: 2222});
+var userCollection = new App.collections.Users([user1, user2]);
+var userView = new App.views.user ({model: user1})

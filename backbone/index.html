@@ -7,6 +7,41 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
+	<header>
+		<div class="authorization">
+			<button class="btn btn-primary btn-md login" data-toggle="modal" data-target="#signin" id='signin-button' type="button">Войти</button>
+
+		<button class="btn btn-primary btn-md " data-toggle="modal" data-target="#signin" id='signup-button' type="button">Регистрация</button>
+			
+			<div id='signin' class="modal fade" tabindex="-1">
+			<form role="form" class="login-form">
+				<div class="form-group">
+					<label for="login">Логин</label>
+				 	<input type="name" class="form-control" id="login" placeholder="Введите логин">
+				 </div>
+				 <div class="form-group">
+				 	<label for="pass">Пароль</label>
+					 <input type="password" class="form-control" id="pass" placeholder="Пароль">
+				 </div>
+				<div class="form-group proofPass">
+				 	<label for="pass">Подтверждение пароля</label>
+					 <input type="password" class="form-control" id="proofPass" placeholder="Повторите пароль">
+				 </div>
+				 <button type="submit" class="btn btn-success">Ок</button>
+				 <button class="btn btn-default" type="button" data-dismiss="modal">Отмена</button>
+			</form>
+		</div>
+
+
+		</div>
+	<div class="userinfo">
+		<span class='username'></span>
+		 <button type="button" id='signout' class="btn btn-primary">Выйти</button>
+
+	</div>
+		
+		
+	</header>
 <div class="page-container">
 	<nav class="navigation">
 		<ul class='categories  nav nav-tabs nav-pills'>

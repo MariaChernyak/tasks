@@ -1,5 +1,5 @@
 App.models.Ad = Backbone.Model.extend({
-
+		// idAd: _.uniqueId,
 		defaults: {
 			// adId: _.uniqueId(),
 			price: 0,
@@ -8,7 +8,7 @@ App.models.Ad = Backbone.Model.extend({
 			description: '',
 			name: ''
 
-		} ,
+		},
 		validate: function(attrs, options) {
 		    if (attrs.price < 0) {
 		      return "цена не может быть отрицательной";
@@ -23,24 +23,30 @@ App.models.Ad = Backbone.Model.extend({
 	});
 	//пользователь 
 	App.models.User = Backbone.Model.extend({
+		// id: _.uniqueId,
 		defaults: {
-			userId: _.uniqueId()
+			// userId: _.uniqueId()
+			role: 'user'
 		}
 	})
+
+	//коллекция пользователей
 	App.collections.Users = Backbone.Collection.extend({model: App.models.User})
+
 	//коллекция объявлений
 	App.collections.Ads = Backbone.Collection.extend({
 		model: App.models.Ad
 	});
-
+	
+	//категория
 	App.models.Category = Backbone.Model.extend({
 		defaults: {
-			idCategory: _.uniqueId,
+			// idCategory: _.uniqueId,
 			name: ''
-
 		}
 	});
 
+	//коллекция категорий
 	App.collections.categories = Backbone.Collection.extend({
 		model: App.models.Category
 	});

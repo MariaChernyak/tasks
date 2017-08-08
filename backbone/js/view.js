@@ -134,7 +134,7 @@
 	//вид коллекции объявлений
 	App.views.Ads = Backbone.View.extend({
 		el: $('.content'),
-		
+
 		initialize: function(){
 			this.render()
 			this.collection.on('add', this.addOne, this);
@@ -192,7 +192,6 @@
 	App.views.categories = Backbone.View.extend({
 		el: $('.categories'),
 		initialize: function(){
-			console.log(this.collection.models[0])
 			this.render();
 		},
 		render: function(){
@@ -205,5 +204,44 @@
 		}
 	});
 
-	App.views.app = Backbone.View.extend({});
+	// App.views.app = Backbone.View.extend({
+	// 	el: $('.page-container'),
 
+	// 	initialize: function(){
+
+	// 	},
+	// 	render: function(){
+	// 		if()
+	// 	}
+	// });
+
+App.views.user = Backbone.View.extend({
+	el: $('header'),
+	initialize: function(){
+		this.render();
+		return this;
+	},
+	events: {
+		'click #signout' : 'signout'
+	},
+	render: function(){
+		// this.$el.html('');
+
+		if(this.model){
+			$('.userinfo').removeClass('none');
+			$('.authorization').addClass('none');
+			$('.username').html(this.model.get('name'));
+		}
+		else{
+			$('.userinfo').addClass('none');
+			$('.authorization').removeClass('none');
+		}
+		return this;
+	},
+	signout: function(){
+		console.log('sss')
+		console.log(this.model);
+		this.model = null;
+		this.render();
+	}
+})
