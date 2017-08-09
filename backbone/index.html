@@ -7,11 +7,13 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-	<header>
+	
+<div class="page-container">
+<header>
 		<div class="authorization">
-			<button class="btn btn-primary btn-md login" data-toggle="modal" data-target="#signin" id='signin-button' type="button">Войти</button>
+			<button class="btn btn-primary btn-md login" id='signin-button' type="button">Войти</button>
 
-		<button class="btn btn-primary btn-md " data-toggle="modal" data-target="#signin" id='signup-button' type="button">Регистрация</button>
+		<button class="btn btn-primary btn-md "  id='signup-button' type="button">Регистрация</button>
 			
 			<div id='signin' class="modal fade" tabindex="-1">
 			<form role="form" class="login-form">
@@ -42,7 +44,6 @@
 		
 		
 	</header>
-<div class="page-container">
 	<nav class="navigation">
 		<ul class='categories  nav nav-tabs nav-pills'>
 	<!-- 		<li id='-1category' class='active'>Все объявления</li> -->
@@ -97,6 +98,18 @@
 <script type="text/javascript" src='js/backbone.js'></script>
 <script type="text/javascript" src='js/localStorage.js'></script>
 <script id="adTemplate" type="text/template">
+	<!-- <ul class="edit-buttons">
+		<li class="edit">
+			<a class='glyphicon glyphicon-pencil'  ></a>	<a class='glyphicon glyphicon-pencil'  data-toggle='modal' data-target='#edit' ></a>
+		</li>
+		<li class="delete"><a class='glyphicon glyphicon-remove'></a></li>
+	</ul> -->
+	<div class='ad-img'><img src="<%=img%>"></div>
+	<h2 class='ad-name'><%=name%></h2>
+	<p class='ad-price'><%=price%></p>
+	<p class='ad-description'><%=description%></p>
+</script>
+<script id="templateExtra" type="text/template">
 	<ul class="edit-buttons">
 		<li class="edit">
 			<a class='glyphicon glyphicon-pencil'  ></a>	<!-- <a class='glyphicon glyphicon-pencil'  data-toggle='modal' data-target='#edit' ></a> -->

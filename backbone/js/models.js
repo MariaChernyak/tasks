@@ -7,7 +7,6 @@ App.models.Ad = Backbone.Model.extend({
 			publication: true, 
 			description: '',
 			name: ''
-
 		},
 		validate: function(attrs, options) {
 		    if (attrs.price < 0) {
@@ -31,11 +30,30 @@ App.models.Ad = Backbone.Model.extend({
 	})
 
 	//коллекция пользователей
-	App.collections.Users = Backbone.Collection.extend({model: App.models.User})
+	App.collections.Users = Backbone.Collection.extend({
+		model: App.models.User,
+		userSearch: function(user){
+			var length = this.models.length;
+			for(var i = 0; i < length; i++){
+				if(this.models[i].get('name') == user.name){
+					if(this.models[i].get('password') == user.password){
+						return this.models[i];
+					}
+					else{
+						return false;
+					}
+				}
+			}
+			return false;
+		
+		}
+
+	})
 
 	//коллекция объявлений
 	App.collections.Ads = Backbone.Collection.extend({
 		model: App.models.Ad
+
 	});
 	
 	//категория

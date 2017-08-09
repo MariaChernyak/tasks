@@ -3,6 +3,7 @@
 		tagName: 'div',
 		className: 'ad',
 		template:  _.template($('#adTemplate').html()),
+		templateExtra: _.template($('#templateExtra').html()),
 		events: {
 			'click .edit' : 'openForm',
 			'click .delete' :'destroy'
@@ -13,12 +14,24 @@
 			this.model.on('destroy', this.remove, this);
 		},
 		render: function(){
-			this.$el.html( this.template( this.model.toJSON() ) );
+			if(currentUser){
+				if(currentUser.get('role') == 'admin' || currentUser.get('id') == this.model.userId){
+
+				this.$el.html( this.templateExtra( this.model.toJSON() ) );
+				}
+				else{
+				this.$el.html( this.template( this.model.toJSON() ) );
+				}
+			}
+			
+			else{
+				this.$el.html( this.template( this.model.toJSON() ) );
+			}
+			
 			return this;
 		},
 		openForm: function(){
 			editAdView.model = this.model;
-
 			editAdView.render();
 		},
 		destroy: function(){
@@ -80,14 +93,12 @@
 				console.log('no' + reader)
 				var that = this;
 				reader.onload = function(event) {
-					console.log('yes' + reader)
-		    		var dataUrl = event.target.result;
+					var dataUrl = event.target.result;
 		    		var photo = event.target.result;
 		    		that.model.set('img', photo);
 
 				}	
 			}
-			console.log(reader)
 		},
 		validateForm: function(name, price, description){
 			var flag = 0;
@@ -218,11 +229,16 @@
 App.views.user = Backbone.View.extend({
 	el: $('header'),
 	initialize: function(){
+		currentUser = this.model;
 		this.render();
 		return this;
 	},
 	events: {
-		'click #signout' : 'signout'
+		'click #signout' : 'signout',
+		'click #signin-button' : 'openSignInForm',
+		'click #signup-button' : 'openSignUpForm',
+		'submit form[name="signin-form"]' : 'signin',
+		'submit form[name="signup-form"]' : 'signup'
 	},
 	render: function(){
 		// this.$el.html('');
@@ -239,9 +255,54 @@ App.views.user = Backbone.View.extend({
 		return this;
 	},
 	signout: function(){
-		console.log('sss')
-		console.log(this.model);
 		this.model = null;
+		currentUser = null;
 		this.render();
+	},
+	openSignInForm: function(){
+		$('#signin form').attr('name','signin-form');
+		$('#signin').modal('show');
+		$('.proofPass').addClass('none');
+
+	},
+	openSignUpForm: function(){
+		$('#signin form').attr('name','signup-form');
+		$('.proofPass').removeClass('none');
+		$('#signin').modal('show');
+	},
+	signin: function(event){
+		event.preventDefault();
+		var name = $('#login').val();
+		var password = $('#pass').val();
+		var user = this.collection.userSearch({name: name, password: password});
+		if(user){
+			this.model = user;
+			currentUser = user;
+			this.render();
+			$('#signin').modal('hide');
+			this.resetForm();
+		}
+	},
+	signup: function(event){
+		event.preventDefault();
+		var name = $('#login').val();
+		if(name && $('#pass').val() == $('#proofPass').val()){
+			var password = $('#pass').val();
+			var user = new App.models.User({id: _.uniqueId, name: name, password: password });
+			this.collection.add(user);
+			this.model = user;
+			currentUser = user;
+			this.render();
+			$('#signin').modal('hide');
+			this.resetForm();
+
+		}
+		var password = $('#pass').val();
+	},
+	resetForm: function(){
+		
+		$('#login').val('');
+		$('#pass').val('');
+		$('#proofPass').val('');
 	}
 })

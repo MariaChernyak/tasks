@@ -237,7 +237,7 @@
 	});
 }());
 
-	var collection = new App.collections.Ads([{name: 'Продам квартиру', description: 'недорого, Завадской район',img:'img/2.jpg', categoryId: 1}, {name: 'Сдам 1-комнатную', img:'img/1.jpg', description: 'хороший ремонт', categoryId: 2}, {name: 'уютная комната', img:'img/3.jpg', description: 'недорого', categoryId: 1}])
+	var collection = new App.collections.Ads([{name: 'Продам квартиру', description: 'недорого, Завадской район',img:'img/2.jpg', categoryId: 1, userId: 1}, {name: 'Сдам 1-комнатную', img:'img/1.jpg', description: 'хороший ремонт', categoryId: 2, userId: 2}, {name: 'уютная комната', img:'img/3.jpg', description: 'недорого', categoryId: 1, userId: 3}])
 	var collectionView = new App.views.Ads({collection: collection})
 	// $(document.body).prepend(collectionView.render().el);
 	var editAdView = new App.views.editAd({collection: collection});
@@ -283,4 +283,5 @@ var reader = new FileReader();
 var user1 = new App.models.User({id: 0, name: 'Maria', password: 1111, role: 'admin'});
 var user2 = new App.models.User({id: 1, name: 'Andrey', password: 2222});
 var userCollection = new App.collections.Users([user1, user2]);
-var userView = new App.views.user ({model: user1})
+var userView = new App.views.user ({model: user1, collection: userCollection});
+var currentUser = user1;

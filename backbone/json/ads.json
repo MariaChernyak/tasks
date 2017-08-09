@@ -1,0 +1,49 @@
+"[
+	{"id":0,"name":"пр. Победителей 56","price":500,"description":"Сдам уютную 1-комнатную квартиру на длительный срок","img":"img/1.jpg","userID":0,"categoryID":2,"publication":true},
+
+	{"id":1,"name":"2-х комнатная, Машерова 12","price":800,"description":"Сдам квартиру на длительный срок","img":"img/2.jpg","userID":0,"categoryID":2,"publication":true},
+
+	{"id":2,"name":"куплю квартиру","price":0,"description":"Ищу 1-2-комнатную квартиру недалеко от метро. Недорого","img":"img/3.jpg","userID":0,"categoryID":1,"publication":true},
+
+	{"id":3,"name":"пр. Победителей 50","price":5,"description":"Сдам уютную 2-комнатную квартиру на длительный срок","img":"img/1.jpg","userID":1,"categoryID":2,"publication":true},
+
+	{"id":4,"name":"2-х комнатная","price":600,"description":"Сдам квартиру на длительный срок","img":"img/noImage.jpg","userID":1,"categoryID":2,"publication":true},
+
+	{"id":5,"name":"Продам квартиру","price":50000,"description":"2-комнатная квартиру недалеко от метро Каменная горка. Недорого","img":"img/4.jpg","userID":1,"categoryID":0,"publication":true},
+
+	{"id":6,"name":"пр. Победителей 50","price":5,"description":"Сдам уютную 2-комнатную квартиру на длительный срок","img":"img/1.jpg","userID":1,"categoryID":2,"publication":true},
+
+	{"id":7,"name":"2-х комнатная","price":600,"description":"Сдам квартиру на длительный срок","img":"img/noImage.jpg","userID":1,"categoryID":2,"publication":true},
+
+	{"id":8,"name":"Продам квартиру","price":50000,"description":"2-комнатная квартиру недалеко от метро Каменная горка. Недорого","img":"img/4.jpg","userID":1,"categoryID":0,"publication":true},
+
+	{"id":9,"name":"пр. Победителей 50","price":5,"description":"Сдам уютную 2-комнатную квартиру на длительный срок","img":"img/1.jpg","userID":1,"categoryID":2,"publication":true},
+
+	{"id":10,"name":"2-х комнатная","price":600,"description":"Сдам квартиру на длительный срок","img":"img/noImage.jpg","userID":1,"categoryID":2,"publication":true},
+
+	{"id":11,"name":"Продам квартиру","price":50000,"description":"2-комнатная квартиру недалеко от метро Каменная горка. Недорого","img":"img/4.jpg","userID":1,"categoryID":0,"publication":true},
+
+	{"id":12,"name":"пр. Победителей 50","price":5,"description":"Сдам уютную 2-комнатную квартиру на длительный срок","img":"img/1.jpg","userID":1,"categoryID":2,"publication":true},
+
+	{"id":13,"name":"2-х комнатная","price":600,"description":"Сдам квартиру на длительный срок","img":"img/noImage.jpg","userID":1,"categoryID":2,"publication":true},
+
+	{"id":14,"name":"Продам квартиру","price":50000,"description":"2-комнатная квартиру недалеко от метро Каменная горка. Недорого","img":"img/4.jpg","userID":1,"categoryID":0,"publication":true},
+
+	{"id":15,"name":"пр. Победителей 50","price":5,"description":"Сдам уютную 2-комнатную квартиру на длительный срок","img":"img/1.jpg","userID":1,"categoryID":2,"publication":true},
+
+	{"id":16,"name":"2-х комнатная","price":600,"description":"Сдам квартиру на длительный срок","img":"img/noImage.jpg","userID":1,"categoryID":2,"publication":true},
+
+	{"id":17,"name":"Продам квартиру","price":50000,"description":"2-комнатная квартиру недалеко от метро Каменная горка. Недорого","img":"img/4.jpg","userID":1,"categoryID":0,"publication":true},
+
+	{"id":18,"name":"пр. Победителей 50","price":5,"description":"Сдам уютную 2-комнатную квартиру на длительный срок","img":"img/1.jpg","userID":1,"categoryID":2,"publication":true},
+
+	{"id":19,"name":"2-х комнатная","price":600,"description":"Сдам квартиру на длительный срок","img":"img/noImage.jpg","userID":1,"categoryID":2,"publication":true},
+
+	{"id":20,"name":"Продам квартиру","price":50000,"description":"2-комнатная квартиру недалеко от метро Каменная горка. Недорого","img":"img/4.jpg","userID":1,"categoryID":0,"publication":true},
+
+	{"id":21,"name":"пр. Победителей 50","price":5,"description":"Сдам уютную 2-комнатную квартиру на длительный срок","img":"img/1.jpg","userID":1,"categoryID":2,"publication":true},
+
+	{"id":22,"name":"2-х комнатная","price":600,"description":"Сдам квартиру на длительный срок","img":"img/noImage.jpg","userID":1,"categoryID":2,"publication":true},
+	
+	{"id":23,"name":"Продам квартиру","price":50000,"description":"2-комнатная квартиру недалеко от метро Каменная горка. Недорого","img":"img/4.jpg","userID":1,"categoryID":0,"publication":true}
+]"
