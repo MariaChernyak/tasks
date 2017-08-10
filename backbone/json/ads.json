@@ -1,4 +1,4 @@
-"[
+[
 	{"id":0,"name":"пр. Победителей 56","price":500,"description":"Сдам уютную 1-комнатную квартиру на длительный срок","img":"img/1.jpg","userID":0,"categoryID":2,"publication":true},
 
 	{"id":1,"name":"2-х комнатная, Машерова 12","price":800,"description":"Сдам квартиру на длительный срок","img":"img/2.jpg","userID":0,"categoryID":2,"publication":true},
@@ -46,4 +46,4 @@
 	{"id":22,"name":"2-х комнатная","price":600,"description":"Сдам квартиру на длительный срок","img":"img/noImage.jpg","userID":1,"categoryID":2,"publication":true},
 	
 	{"id":23,"name":"Продам квартиру","price":50000,"description":"2-комнатная квартиру недалеко от метро Каменная горка. Недорого","img":"img/4.jpg","userID":1,"categoryID":0,"publication":true}
-]"
+]

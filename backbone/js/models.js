@@ -12,10 +12,10 @@ App.models.Ad = Backbone.Model.extend({
 		    if (attrs.price < 0) {
 		      return "цена не может быть отрицательной";
 		    }
-		    if(!isFinite(attr.price)){
+		    if(!isFinite(attrs.price)){
 		    	 return "цена должна быть числом";
 		    }
-		    if(!attr.name){
+		    if(!attrs.name){
 		    	return "задайте имя";
 		    }
 		}
@@ -52,7 +52,8 @@ App.models.Ad = Backbone.Model.extend({
 
 	//коллекция объявлений
 	App.collections.Ads = Backbone.Collection.extend({
-		model: App.models.Ad
+		model: App.models.Ad,
+		 localStorage: new Backbone.LocalStorage("app")
 
 	});
 	

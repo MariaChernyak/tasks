@@ -15,7 +15,8 @@
 		},
 		render: function(){
 			if(currentUser){
-				if(currentUser.get('role') == 'admin' || currentUser.get('id') == this.model.userId){
+				// console.log(this.)
+				if(currentUser.get('role') == 'admin' || currentUser.get('id') == this.model.get('userID')){
 
 				this.$el.html( this.templateExtra( this.model.toJSON() ) );
 				}
@@ -51,11 +52,13 @@
 		},
 		
 		initialize: function(){
+
 			// this.render();
 			// this.model.on('change', this.render, this);
 
 		},
 		render: function(){
+
 			this.reset();
 			this.$el.modal('show');
 			if(this.model){
@@ -78,16 +81,18 @@
 			event.preventDefault();
 			if(this.validateForm()){
 				this.model = new App.models.Ad();
-				this.save();
 				this.collection.add(this.model);
+				// this.save({userID: currentUser.id});
+				
 				this.reset();
 				$('#edit').modal('hide');
 			}
 		},
 		save: function(){
-			this.model.set('name', $('#name').val());
-			this.model.set('price', $('#price').val());
-			this.model.set('description', $('#description').val());
+			this.model.save({'name': $('#name').val(), 'price': $('#price').val(), 'description': $('#description').val()});
+			// this.model.set('price', $('#price').val());
+			// this.model.set('description', $('#description').val());
+			// this.model.save();
 			if( $('#photo').val() ){
 				reader.readAsDataURL($('#photo').prop('files')[0]);
 				console.log('no' + reader)
@@ -95,7 +100,8 @@
 				reader.onload = function(event) {
 					var dataUrl = event.target.result;
 		    		var photo = event.target.result;
-		    		that.model.set('img', photo);
+		    		// that.model.set('img', photo);
+		    		that.model.save('img', photo);
 
 				}	
 			}
@@ -147,12 +153,14 @@
 		el: $('.content'),
 
 		initialize: function(){
+			console.log(this.collection)
 			this.render()
 			this.collection.on('add', this.addOne, this);
 			this.collection.on('reset', this.render, this);
 		},
 		render: function(){
-			console.log(this.collection)
+			// this.collection.fetch();
+			// console.log(this.collection)
 			this.$el.html('');
 			this.collection.each(this.addOne, this);
 	  		return this;
@@ -178,12 +186,12 @@
 			else{
 				var length = collection.length;
 				for(var i = 0; i < length; i++){
-					if(collection.models[i].get('categoryId') == this.model.get('id')){
+					if(collection.models[i].get('categoryID') == this.model.get('id')){
 						newCollection.add(collection.models[i]);
 					}
 				}
 			}
-			
+			console.log(collectionView)
 			collectionView.collection = newCollection;
 			collectionView.render();
 		},

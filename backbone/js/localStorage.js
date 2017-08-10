@@ -1,187 +1,171 @@
+/**
+ * Backbone localStorage Adapter
+ * Version 1.1.0
+ *
+ * https://github.com/jeromegn/Backbone.localStorage
+ */
+(function (root, factory) {
+   if (typeof define === "function" && define.amd) {
 
-// import {chain, contains, isObject, without} from 'underscore';
+ 
+      define(["underscore","backbone"], function(_, Backbone) {
 
-// import {getWindow, guid} from './utils';
+ 
+        return factory(_ || root._, Backbone || root.Backbone);
+      });
+   } else {
 
+ 
+      factory(_, Backbone);
+   }
+}(this, function(_, Backbone) {
 
-// /** The default serializer for transforming your saved data to localStorage */
-// const defaultSerializer = {
+ 
+function S4() {
+   return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+};
 
-//   /** Return a JSON-serialized string representation of item
-//    * @param {Object} item - The encoded model data
-//    * @returns {string} A JSON-encoded string
-//    */
-//   serialize(item) {
-//     return isObject(item) ? JSON.stringify(item) : item;
-//   },
+ 
+function guid() {
+   return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+};
+ 
+Backbone.LocalStorage = window.Store = function(name) {
+  this.name = name;
+  var store = this.localStorage().getItem(this.name);
+  this.records = (store && store.split(",")) || [];
+};
 
-//   /** Custom deserialization for data. This includes a fix for an Android bug
-//    * which raises an error attempting to deserialize null
-//    * @param {string} data - JSON-encoded string
-//    * @returns {Object} The object result of parsing data
-//    */
-//   deserialize(data) {
-//     return data && JSON.parse(data);
-//   }
-// }
+_.extend(Backbone.LocalStorage.prototype, {
 
-// /** LocalStorage proxy class for Backbone models.
-//  * Usage:
-//  *   export const MyModel = Backbone.Model.extend({
-//  *     localStorage: new LocalStorage('MyModelName')
-//  *   });
-//  */
-// export class LocalStorage {
-//   constructor(name = '', serializer = defaultSerializer) {
-//     this.name = name;
-//     this.serializer = serializer;
+ 
+  save: function() {
+    this.localStorage().setItem(this.name, this.records.join(","));
+  },
 
-//     if (!this.localStorage) {
-//       throw 'Backbone.localStorage: Environment does not support localStorage.'
-//     }
+ 
+  create: function(model) {
+    if (!model.id) {
+      model.id = guid();
+      model.set(model.idAttribute, model.id);
+    }
+    this.localStorage().setItem(this.name+"-"+model.id, JSON.stringify(model));
+    this.records.push(model.id.toString());
+    this.save();
+    return this.find(model);
+  },
 
-//     const store = this._getItem(this.name);
-//     this.records = (store && store.split(',')) || [];
-//   }
+ 
+  update: function(model) {
+    this.localStorage().setItem(this.name+"-"+model.id, JSON.stringify(model));
+    if (!_.include(this.records, model.id.toString()))
+      this.records.push(model.id.toString()); this.save();
+    return this.find(model);
+  },
 
-//   /** Return the global localStorage variable
-//    * @returns {Object} Local Storage reference.
-//   */
-//   localStorage() {
-//     return getWindow().localStorage
-//   }
+ 
+  find: function(model) {
+    return this.jsonData(this.localStorage().getItem(this.name+"-"+model.id));
+  },
 
-//   /** Save the current status to localStorage
-//    * @returns {undefined}
-//    */
-//   save() {
-//     this._setItem(this.name, this.records.join(','));
-//   }
+ 
+  findAll: function() {
+    return _(this.records).chain()
+      .map(function(id){
+        return this.jsonData(this.localStorage().getItem(this.name+"-"+id));
+      }, this)
+      .compact()
+      .value();
+  },
 
-//   /** Add a new model with a unique GUID, if it doesn't already have its own ID
-//    * @param {Model} model - The Backbone Model to save to LocalStorage
-//    * @returns {Model} The saved model
-//    */
-//   create(model) {
-//     if (!model.id && model.id !== 0) {
-//       model.id = guid();
-//       model.set(model.idAttribute, model.id);
-//     }
+  destroy: function(model) {
+    if (model.isNew())
+      return false
+    this.localStorage().removeItem(this.name+"-"+model.id);
+    this.records = _.reject(this.records, function(id){
+      return id === model.id.toString();
+    });
+    this.save();
+    return model;
+  },
 
-//     this._setItem(this._itemName(model.id), this.serializer.serialize(model));
-//     this.records.push(model.id.toString());
-//     this.save();
+  localStorage: function() {
+    return localStorage;
+  },
 
-//     return this.find(model);
-//   }
+ 
+  jsonData: function (data) {
+      return data && JSON.parse(data);
+  }
 
-//   /** Update an existing model in LocalStorage
-//    * @param {Model} model - The model to update
-//    * @returns {Model} The updated model
-//    */
-//   update(model) {
-//     this._setItem(this._itemName(model.id), this.serializer.serialize(model));
+});
 
-//     const modelId = model.id.toString();
+ 
+Backbone.LocalStorage.sync = window.Store.sync = Backbone.localSync = function(method, model, options) {
+  var store = model.localStorage || model.collection.localStorage;
 
-//     if (!contains(this.records, modelId)) {
-//       this.records.push(modelId);
-//       this.save();
-//     }
-//     return this.find(model);
-//   }
+  var resp, errorMessage, syncDfd = $.Deferred && $.Deferred(); //If $ is having Deferred - use it.
 
-//   /** Retrieve a model from local storage by model id
-//    * @param {Model} model - The Backbone Model to lookup
-//    * @returns {Model} The model from LocalStorage
-//    */
-//   find(model) {
-//     return this.serializer.deserialize(this._getItem(this._itemName(model.id)));
-//   }
+  try {
 
-//   /** Return all models from LocalStorage
-//    * @returns {Array} The array of models stored
-//    */
-//   findAll() {
-//     return chain(this.records).map(
-//       id => this.serializer.deserialize(this._getItem(this._itemName(id)))
-//       ).filter(
-//         item => item != null).value();
-//   }
+    switch (method) {
+      case "read":
+        resp = model.id != undefined ? store.find(model) : store.findAll();
+        break;
+      case "create":
+        resp = store.create(model);
+        break;
+      case "update":
+        resp = store.update(model);
+        break;
+      case "delete":
+        resp = store.destroy(model);
+        break;
+    }
 
-//   /** Delete a model from `this.data`, returning it.
-//    * @param {Model} model - Model to delete
-//    * @returns {Model} Model removed from this.data
-//   */
-//   destroy(model) {
-//     this._removeItem(this._itemName(model.id));
-//     const newRecords = without(this.records, model);
+  } catch(error) {
+    if (error.code === DOMException.QUOTA_EXCEEDED_ERR && window.localStorage.length === 0)
+      errorMessage = "Private browsing is unsupported";
+    else
+      errorMessage = error.message;
+  }
 
-//     this.records = newRecords;
-//     this.save();
+  if (resp) {
+    model.trigger("sync", model, resp, options);
+    if (options && options.success)
+      options.success(resp);
+    if (syncDfd)
+      syncDfd.resolve(resp);
 
-//     return model;
-//   }
+  } else {
+    errorMessage = errorMessage ? errorMessage
+                                : "Record Not Found";
 
-//   /** Clear localStorage for a collection
-//    * @returns {undefined}
-//    */
-//   _clear() {
-//     const local = this.localStorage();
-//     const itemRe = new RegExp(`^${this.name}-`);
+    if (options && options.error)
+      options.error(errorMessage);
+    if (syncDfd)
+      syncDfd.reject(errorMessage);
+  }
 
-//     // Remove id-tracking item (e.g., "foo").
-//     local.removeItem(this.name);
+ 
+  if (options && options.complete) options.complete(resp);
 
-//     // Match all data items (e.g., "foo-ID") and remove.
-//     for (let k in local) {
-//       if (itemRe.test(k)) {
-//         local.removeItem(k);
-//       }
-//     }
+  return syncDfd && syncDfd.promise();
+};
 
-//     this.records.length = 0;
-//   }
+Backbone.ajaxSync = Backbone.sync;
 
-//   /** Number of items in localStorage
-//    * @returns {integer} - Number of items
-//    */
-//   _storageSize() {
-//     return this.localStorage().length;
-//   }
+Backbone.getSyncMethod = function(model) {
+  if(model.localStorage || (model.collection && model.collection.localStorage)) {
+    return Backbone.localSync;
+  }
 
-//   /** Return the item from localStorage
-//    * @param {string} name - Name to lookup
-//    * @returns {string} Value from localStorage
-//    */
-//   _getItem(name) {
-//     return this.localStorage().getItem(name);
-//   }
+  return Backbone.ajaxSync;
+};
+ 
+Backbone.sync = function(method, model, options) {
+  return Backbone.getSyncMethod(model).apply(this, [method, model, options]);
+};
 
-//   /** Return the item name to lookup in localStorage
-//    * @param {integer} id - Item ID
-//    * @returns {string} Item name
-//   */
-//   _itemName(id) {
-//     return `${this.name}-${id}`;
-//   }
-
-//   /** Proxy to the localStorage setItem value method
-//    * @param {string} key - LocalStorage key to set
-//    * @param {string} value - LocalStorage value to set
-//    * @returns {undefined}
-//    */
-//   _setItem(key, value) {
-//     this.localStorage().setItem(key, value);
-//   }
-
-//   /** Proxy to the localStorage removeItem method
-//    * @param {string} key - LocalStorage key to remove
-//    * @returns {undefined}
-//    */
-//   _removeItem(key) {
-//     this.localStorage().removeItem(key);
-//   }
-// };
-// Contact GitHub API Training Shop Blog About
-// © 2017 GitHub, Inc. Terms Privacy Security Status Help
+return Backbone.LocalStorage;
+}));

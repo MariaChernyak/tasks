@@ -233,14 +233,35 @@
 		$('#edit form').attr('name', 'add-form');
 		editAdView.model = null;
 		editAdView.render();
-		
 	});
 }());
+// var ads;
+// $.getJSON('../json/ads.json' ,function(recdata,status){
+// 	console.log('a')
+//   // if( status=='succes' ){
+//   //   ads = recdata; 
+//   //   console.log('aa')
+//   // }else{
+//   //   alert('В процессе отправки произошла ошибка :(')
+//   // }
+// })
+// var collection = new App.collections.Ads(ads);
 
-	var collection = new App.collections.Ads([{name: 'Продам квартиру', description: 'недорого, Завадской район',img:'img/2.jpg', categoryId: 1, userId: 1}, {name: 'Сдам 1-комнатную', img:'img/1.jpg', description: 'хороший ремонт', categoryId: 2, userId: 2}, {name: 'уютная комната', img:'img/3.jpg', description: 'недорого', categoryId: 1, userId: 3}])
-	var collectionView = new App.views.Ads({collection: collection})
+
+
+var collection, collectionView, editAdView;
+var xhr = $.get('../json/ads.json', function(data){
+	collection = new App.collections.Ads(data);
+	// console.log(data);
+	collectionView = new App.views.Ads({collection: collection})
 	// $(document.body).prepend(collectionView.render().el);
-	var editAdView = new App.views.editAd({collection: collection});
+	 editAdView = new App.views.editAd({collection: collection});
+
+})
+	// var collection = new App.collections.Ads([{name: 'Продам квартиру', description: 'недорого, Завадской район',img:'img/2.jpg', categoryId: 1, userId: 1}, {name: 'Сдам 1-комнатную', img:'img/1.jpg', description: 'хороший ремонт', categoryId: 2, userId: 2}, {name: 'уютная комната', img:'img/3.jpg', description: 'недорого', categoryId: 1, userId: 3}])
+	// var collectionView = new App.views.Ads({collection: collection})
+	// // $(document.body).prepend(collectionView.render().el);
+	// var editAdView = new App.views.editAd({collection: collection});
 var category0 = new App.models.Category({name: 'Все объявления', id: -1});
 var category1 = new App.models.Category({name: 'Продажа', id: 1});
 var category2 = new App.models.Category({name: 'Аренда', id: 2});
@@ -285,3 +306,7 @@ var user2 = new App.models.User({id: 1, name: 'Andrey', password: 2222});
 var userCollection = new App.collections.Users([user1, user2]);
 var userView = new App.views.user ({model: user1, collection: userCollection});
 var currentUser = user1;
+
+
+// var c = a.responseText
+// var b = JSON.parse(a.responseText)
