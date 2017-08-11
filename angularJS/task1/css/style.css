@@ -1,0 +1,13 @@
+div{
+	margin: 20px auto;
+	width: 400px;
+}
+p{
+	text-align: center;
+}
+input{
+	width: 400px;
+	height: 20px;
+	margin-top: 10px;
+
+}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>angularJS</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+	</head>
+		
+	</head>
+	<body ng-app>
+		<div ng-controller='controller1'>
+			<form ng-controller='controller2'>
+				<input ng-model='sharedValue.a' placeholder="Введите что-нибудь">
+			</form>
+
+			<form ng-controller='controller2'>
+				<input ng-model='sharedValue.a' placeholder="Введите что-нибудь">
+			</form>
+
+			<p>Вы ввели: "{{sharedValue.a}}"</p>
+
+		</div>
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.js"></script>
+		<script type="text/javascript" src="js/script.js"></script>
+	</body>
+</html>
