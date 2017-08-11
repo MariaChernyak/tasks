@@ -22,9 +22,8 @@ App.models.Ad = Backbone.Model.extend({
 	});
 	//пользователь 
 	App.models.User = Backbone.Model.extend({
-		// id: _.uniqueId,
+		localStorage: new Backbone.LocalStorage("user"),
 		defaults: {
-			// userId: _.uniqueId()
 			role: 'user'
 		}
 	})
