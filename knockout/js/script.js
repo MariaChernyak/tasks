@@ -99,11 +99,11 @@ var ViewModel = function(){
 			var categories = ko.observableArray([]);
 		}
 		return categories;
-	}();
+	};
 	//переключение категории
 	this.tab = function(){
 		console.log(this);
-	}	
+	};	
 	//текущий пользователь
 	this.currentUser = ko.observable(JSON.parse(localStorage.getItem('currentUser')) || null);
 	//открытие формы редактирования
@@ -118,14 +118,16 @@ var ViewModel = function(){
 	//сохранение ads в localStorage
 	this.save = function(){
 		localStorage.setItem('ads', ko.toJSON(that.ads))
-	}
+	};
 	//удаление объявления
 	this.deleteAd =  function(ad){
 		that.ads.remove(this);
 		that.save();
-	}
+	};
 	this.currentAd = ko.observable({});
-
+	this.signout = function(){
+		that.currentUser(null);
+	};
 }
 var app = new ViewModel();
 

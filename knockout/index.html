@@ -10,11 +10,11 @@
 	
 <div class="page-container">
 
-<!-- <header>
-		<div class="authorization">
-			<button class="btn btn-primary btn-md login" id='signin-button' type="button">Войти</button>
+<header>
+		<div data-bind="ifnot: currentUser" class="authorization">
+			<button class="btn btn-primary btn-md login" id='signin-button' type="button" data-toggle='modal' data-target='#signin'>Войти</button>
 
-		<button class="btn btn-primary btn-md "  id='signup-button' type="button">Регистрация</button>
+		<button class="btn btn-primary btn-md "  id='signup-button' type="button" data-toggle='modal' data-target='#signin'>Регистрация</button>
 			
 			<div id='signin' class="modal fade" tabindex="-1">
 			<form role="form" class="login-form">
@@ -37,18 +37,18 @@
 
 
 		</div>
-	<div class="userinfo">
-		<span class='username'></span>
-		 <button type="button" id='signout' class="btn btn-primary">Выйти</button>
+	<div data-bind="if: currentUser" class="userinfo">
+		<span class='username' data-bind="text: currentUser().name"></span>
+		 <button type="button" id='signout' class="btn btn-primary" data-bind="click: signout">Выйти</button>
 
 	</div>
 		
 		
-	</header> -->
+	</header>
 
 
 	<nav class="navigation">
-		<ul class='categories  nav nav-tabs nav-pills' data-bind = "foreach: categories">
+		<ul class='categories  nav nav-tabs nav-pills' data-bind = "foreach: categories()">
 			<!-- <li id='-1category' class='active'>Все объявления</li> -->
 			<li data-bind="arrr: {'id': id}, text: name, click: $root.tab"></li>
 
@@ -63,9 +63,9 @@
 			<li data-id='3' class="glyphicon glyphicon-th-list"></li>
 		</ul>
 
-		<div class=" column-2 content" data-bind="foreach: ads">
+		<div class=" column-2 content" data-bind="foreach: ads()">
 			<div class="ad" data-bind = "click: $root.openEditForm">
-			<ul data-bind="if: $root.currentUser().role =='admin' || $root.currentUser().id == id" class="edit-buttons">
+			<ul data-bind="if: $root.currentUser() && ($root.currentUser().role =='admin' || $root.currentUser().id == id)" class="edit-buttons">
 				<li class="edit">
 					<a class='glyphicon glyphicon-pencil' data-toggle='modal' data-target='#edit'  ></a>	<!-- <a class='glyphicon glyphicon-pencil'  data-toggle='modal' data-target='#edit' ></a> -->
 				</li>
