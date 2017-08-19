@@ -1,16 +1,3 @@
-// var Ad = function(name, price, description, img){
-// 	this.name = ko.observable(name);
-// 	this.price = ko.observable(price);
-// 	this.description = ko.observable(description);
-// 	this.img = ko.observable(img);
-// }
-
-// var PersonViewModel = {
-//     personName: ko.observable('Серега'),
-//     personAge:  ko.observable(12)
-// };
-// ko.applyBindings(PersonViewModel);
-
 $.get('../json/categories.json', function(data){
 	localStorage.setItem('categories', JSON.stringify(data));
 	var category = $('#category');
@@ -27,7 +14,7 @@ $.get('../json/categories.json', function(data){
 
 $.get('../json/users.json', function(data){
 	localStorage.setItem('users', JSON.stringify(data));
-	localStorage.setItem('currentUser', JSON.stringify(data[0]));
+	// localStorage.setItem('currentUser', JSON.stringify(data[0]));
 });
 
 //  $.get('../json/ads.json', function(data){
@@ -100,20 +87,35 @@ var ViewModel = function(){
 		}
 		return categories;
 	};
+
 	//переключение категории
 	this.tab = function(){
-		console.log(this);
+		var self = this;
+		console.log(self.id)
+		console.log(that.ads.removeAll(function(item) {
+			// return item.categoryID() !== self.id 
+return true;
+		}
+			))
+		// console.log(that.ads())
 	};	
+
 	//текущий пользователь
 	this.currentUser = ko.observable(JSON.parse(localStorage.getItem('currentUser')) || null);
+
+	//временный пользователь
+	// this.temporaryUser = {
+	// 	name: ko.observable(''),
+	// }
 	//открытие формы редактирования
 	this.openEditForm =  function(){
+
 		that.currentAd(this);
 	};
 	//открытие формы добавления
-	this.openAdForm = function(){
+	this.openAddForm = function(){
 		that.currentAd(null);
-		console.log(that.currentAd)
+		console.log('open')
 	};
 	//сохранение ads в localStorage
 	this.save = function(){
@@ -124,13 +126,54 @@ var ViewModel = function(){
 		that.ads.remove(this);
 		that.save();
 	};
+	//выбранное объявление
 	this.currentAd = ko.observable({});
 	this.signout = function(){
 		that.currentUser(null);
 	};
+	//вход 
+	this.signIn = function(){
+		var login = $('form[name="signin"] [name = "login"]').val();
+		var password =  $('form[name="signin"] [name = "password"]').val();
+		console.log('a')
+		var users = JSON.parse(localStorage.getItem('users'));
+
+		for(var i = 0; i < users.length; i++){
+			if(login == users[i].name){
+				if(password == users[i].password){
+					that.currentUser(users[i]);
+				}
+			}
+		}
+		$('#signin').modal('hide');
+		$('form[name="signin"] input').val('');
+	};
+	//регистрация
+	this.signUp = function(){
+		var login = $('form[name="signup"] [name = "login"]').val();
+		var password =  $('form[name="signup"] [name = "password"]').val();
+		var proofPassword =  $('form[name="signup"] [name = "proofPass"]').val();
+		if(password === proofPassword){
+			if(login){
+				var users = JSON.parse(localStorage.getItem('users'));
+				var user = {
+					id: users.length,
+					name: login,
+					password: password
+				}
+				users.push(user);
+				localStorage.setItem('users', JSON.stringify(users));
+				that.currentUser(user);
+			}
+		}
+		$('#signup').modal('hide');
+		$('form[name="signup"] input').val('');
+	}
 }
 var app = new ViewModel();
-
+app.currentUser.subscribe(function(user) {
+    localStorage.setItem('currentUser', JSON.stringify(user));
+});
 ko.applyBindings(app);
 
 //переключение между видами
@@ -148,19 +191,18 @@ $('.buttons').click(function(event){
 	$('.content').removeClass('column-1');
 	switch(id){
 		case '1': $('.content').addClass('column-4');
-			countAds = 8;
+			// countAds = 8;
 			break;
 	
 		case '2': $('.content').addClass('column-2');
-			countAds = 16;
+			// countAds = 16;
 			break;
 		
 		case '3':
 			$('.content').addClass('column-1');
-			countAds = 8;
+			// countAds = 8;
 			break;
 	}
-
 })
 
 $('form').submit(function(event){

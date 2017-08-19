@@ -9,81 +9,132 @@
 <body>
 	
 <div class="page-container">
-
-<header>
+<div id='signin' class="modal fade" tabindex="-1">
+				<form role="form" name="signin" class="login-form" data-bind="submit: signIn">
+					<div class="form-group">
+						<label>Логин
+						<input type="name" name='login' class="form-control" placeholder="Введите логин"></label>
+					</div>
+					<div class="form-group">
+					 	<label>Пароль  
+					 	<input type="password" name='password' class="form-control" placeholder="Пароль"></label>
+					</div>
+			
+					 <button type="submit" class="btn btn-success" >Ок</button>
+					 <button class="btn btn-default" type="button" data-dismiss="modal">Отмена</button>
+				</form>
+			</div>
+			<div id='signup' class="modal fade" tabindex="-1">
+				<form role="form" class="login-form" name="signup" data-bind="submit: signUp">
+					<div class="form-group">
+						<label>Логин
+						<input type="name" name='login' class="form-control" placeholder="Введите логин"></label>
+					</div>   
+					<div class="form-group">
+					 	<label>Пароль  
+					 	<input type="password" name='password' class="form-control" placeholder="Пароль"></label>
+					</div>
+					<div class="form-group proofPass">
+					 	<label>Подтверждение пароля
+					 	 <input type="password" name='proofPass' class="form-control"  placeholder="Повторите пароль"></label>
+						
+					 </div>
+					 <button type="submit" class="btn btn-success">Ок</button>
+					 <button class="btn btn-default" type="button" data-dismiss="modal">Отмена</button>
+				</form>
+			</div>
+	<header>
 		<div data-bind="ifnot: currentUser" class="authorization">
 			<button class="btn btn-primary btn-md login" id='signin-button' type="button" data-toggle='modal' data-target='#signin'>Войти</button>
-
-		<button class="btn btn-primary btn-md "  id='signup-button' type="button" data-toggle='modal' data-target='#signin'>Регистрация</button>
 			
-			<div id='signin' class="modal fade" tabindex="-1">
-			<form role="form" class="login-form">
-				<div class="form-group">
-					<label for="login">Логин</label>
-				 	<input type="name" class="form-control" id="login" placeholder="Введите логин">
-				 </div>
-				 <div class="form-group">
-				 	<label for="pass">Пароль</label>
-					 <input type="password" class="form-control" id="pass" placeholder="Пароль">
-				 </div>
-				<div class="form-group proofPass">
-				 	<label for="pass">Подтверждение пароля</label>
-					 <input type="password" class="form-control" id="proofPass" placeholder="Повторите пароль">
-				 </div>
-				 <button type="submit" class="btn btn-success">Ок</button>
-				 <button class="btn btn-default" type="button" data-dismiss="modal">Отмена</button>
-			</form>
+			<button class="btn btn-primary btn-md " id='signup-button' type="button" data-toggle='modal' data-target='#signup'>Регистрация</button>
+
+
+			
+
+
+			<!-- <div id='signup' class="modal fade" tabindex="-1">
+				<form role="form" class="login-form">
+					<div class="form-group">
+						<label>Логин
+						<input type="name" class="form-control" placeholder="Введите логин"></label>
+				
+					</div>
+					<div class="form-group">
+					 	<label>Пароль  
+					 	<input type="password" class="form-control" placeholder="Пароль"></label>
+					
+					</div>
+					<div class="form-group proofPass">
+					 	<label>Подтверждение пароля
+					 	 <input type="password" class="form-control"  placeholder="Повторите пароль"></label>
+						
+					 </div>
+					 <button type="submit" class="btn btn-success">Ок</button>
+					 <button class="btn btn-default" type="button" data-dismiss="modal">Отмена</button>
+				</form>
+			</div> -->
+				
+			<!-- <div id='signin' class="modal fade" tabindex="-1">
+				<form role="form" class="login-form">
+					<div class="form-group">
+						<label for="login">Логин</label>
+					 	<input type="name" class="form-control" id="login" placeholder="Введите логин">
+					</div>
+					<div class="form-group">
+					 	<label for="pass">Пароль</label>
+						 <input type="password" class="form-control" id="pass" placeholder="Пароль">
+					</div>
+					<div class="form-group proofPass">
+					 	<label for="pass">Подтверждение пароля</label>
+						 <input type="password" class="form-control" id="proofPass" placeholder="Повторите пароль">
+					 </div>
+					 <button type="submit" class="btn btn-success">Ок</button>
+					 <button class="btn btn-default" type="button" data-dismiss="modal">Отмена</button>
+				</form>
+			</div> -->
 		</div>
-
-
+		<div data-bind="if: currentUser" class="userinfo">
+			<span class='username' data-bind="text: currentUser().name"></span>
+			<button type="button" id='signout' class="btn btn-primary" data-bind="click: signout">Выйти</button>
 		</div>
-	<div data-bind="if: currentUser" class="userinfo">
-		<span class='username' data-bind="text: currentUser().name"></span>
-		 <button type="button" id='signout' class="btn btn-primary" data-bind="click: signout">Выйти</button>
-
-	</div>
-		
-		
 	</header>
-
 
 	<nav class="navigation">
 		<ul class='categories  nav nav-tabs nav-pills' data-bind = "foreach: categories()">
 			<!-- <li id='-1category' class='active'>Все объявления</li> -->
 			<li data-bind="arrr: {'id': id}, text: name, click: $root.tab"></li>
-
 		</ul>
 	</nav>
 
-<button class="btn btn-primary btn-md" id="add-button"  type="button"  data-toggle='modal' data-target='#edit' >Добавить</button>
-<div class="content-container">
+	<button class="btn btn-primary btn-md" id="add-button"  type="button"  data-toggle='modal' data-target='#edit' data-bind=" visible: currentUser, click: openAddForm">Добавить</button>
+	<div class="content-container">
 		<ul class="buttons">
 			<li data-id='1' class="glyphicon glyphicon-th"></li>
 			<li class='active glyphicon glyphicon-th-large' data-id ='2'></li>
 			<li data-id='3' class="glyphicon glyphicon-th-list"></li>
 		</ul>
-
-		<div class=" column-2 content" data-bind="foreach: ads()">
-			<div class="ad" data-bind = "click: $root.openEditForm">
-			<ul data-bind="if: $root.currentUser() && ($root.currentUser().role =='admin' || $root.currentUser().id == id)" class="edit-buttons">
-				<li class="edit">
-					<a class='glyphicon glyphicon-pencil' data-toggle='modal' data-target='#edit'  ></a>	<!-- <a class='glyphicon glyphicon-pencil'  data-toggle='modal' data-target='#edit' ></a> -->
-				</li>
-				<li class="delete" data-bind="click: $root.deleteAd"><a class='glyphicon glyphicon-remove'></a></li>
-			</ul>
-<!-- 			 	<img src="img/noImage.jpg"> -->
-				<img class="add-img" src="img/noImage.jpg" data-bind="attr:{'src': img}">
-				<h2 class="ad-name" data-bind="text:name"></h2>
-				<p class="ad-price" data-bind="text:price"></p>
-				<p class="description" data-bind="text:description"></p>
-				
+		<div class=" column-2 content" data-bind="foreach: ads">
+			<div class="ad">
+				<ul data-bind="if: $root.currentUser() && (  $root.currentUser().role == 'admin' || $root.currentUser().id == userID())" class="edit-buttons">
+					<li class="edit">
+						<a class='glyphicon glyphicon-pencil' data-toggle='modal' data-target='#edit' data-bind="click: $root.openEditForm" ></a>	<!-- <a class='glyphicon glyphicon-pencil'  data-toggle='modal' data-target='#edit' ></a> -->
+					</li>
+					<li class="delete" data-bind="click: $root.deleteAd"><a class='glyphicon glyphicon-remove'></a></li>
+				</ul>
+				<a data-bind="text: userID"></a>
+		<!-- 			 	<img src="img/noImage.jpg"> -->
+					<img class="add-img" src="img/noImage.jpg" data-bind="attr:{'src': img}">
+					<h2 class="ad-name" data-bind="text:name"></h2>
+					<p class="ad-price" data-bind="text:price"></p>
+					<p class="description" data-bind="text:description"></p>
 			</div>
-       
-
+	      
 		</div>
-<!-- 		<button type='button' id='load-button' class="btn btn-primary btn-md pagination-button">показать еще</button> -->
+	<!-- 		<button type='button' id='load-button' class="btn btn-primary btn-md pagination-button">показать еще</button> -->
 	</div>
 </div>
+
 <div id='edit' class="modal fade" tabindex="-1">
 			<form role="form" name='edit-form' class="login-form">
 				<div class="form-group">
@@ -112,8 +163,7 @@
 				<button class="btn btn-default" type="button"  data-dismiss="modal">Отмена</button>
 			</form>
 		</div>
-	<!-- 	Меня зовут <span data-bind="text: personName"></span> и мне <span data-bind="text: personAge"></span> года -->
-<!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
+
 <script src ="js/jquery.min.js" type="text/javascript"></script>
 <script src="js/bootstrap.min.js" type="text/javascript"></script>
 <!-- <script type="text/javascript" src='js/jquery.min.js'></script> -->

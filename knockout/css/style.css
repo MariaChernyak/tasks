@@ -144,3 +144,11 @@ header:after{
 p{
 	font-size: 15px;
 }
+label .form-control{
+	width: 100%;
+	font-weight: normal;
+}
+label{
+	display: block;
+
+}
