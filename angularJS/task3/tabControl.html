@@ -1,0 +1,6 @@
+<div class="tabControl">
+	<ul class="tabs">
+		<li ng-repeat="pane in panes" ng-click="onPaneActivated(pane)" ng-class="{active: pane.selected}">{{pane.title}}</li>
+	</ul>
+	<div class="content" ng-transclude></div>
+</div>
